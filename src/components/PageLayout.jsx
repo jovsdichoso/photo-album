@@ -37,8 +37,6 @@ function Photo({ src, alt, className = '', style = {}, sizeClass = 'photo-print'
 }
 
 export default function PageLayout({ layout, photos, side }) {
-  const isMobile = window.innerWidth < 768
-
   switch (layout) {
     case 'full':
       return (
@@ -63,7 +61,10 @@ export default function PageLayout({ layout, photos, side }) {
 
     case 'two-landscape':
       return (
-        <div className="w-full h-full flex flex-col p-6 gap-5 justify-center">
+        <div 
+          className="w-full h-full flex flex-col justify-center"
+          style={{ padding: '6%', gap: '5%' }}
+        >
           <Photo
             src={photos[0]?.src}
             alt={photos[0]?.alt}
@@ -84,7 +85,10 @@ export default function PageLayout({ layout, photos, side }) {
     case 'four-polaroid': {
       const rotations = ['-2deg', '1.5deg', '-1deg', '2.5deg']
       return (
-        <div className="w-full h-full p-4 grid grid-cols-2 gap-4 place-items-center">
+        <div 
+          className="w-full h-full grid grid-cols-2 place-items-center"
+          style={{ padding: '5%', gap: '4%' }}
+        >
           {photos.slice(0, 4).map((photo, i) => (
             <div
               key={i}
@@ -108,7 +112,7 @@ export default function PageLayout({ layout, photos, side }) {
 
     case 'collage': {
       return (
-        <div className="w-full h-full relative p-6">
+        <div className="w-full h-full relative" style={{ padding: '6%' }}>
           {/* Background large photo */}
           <Photo
             src={photos[0]?.src}
@@ -162,8 +166,8 @@ export default function PageLayout({ layout, photos, side }) {
 
     default:
       return (
-        <div className="w-full h-full flex items-center justify-center">
-          <Photo src={photos[0]?.src} alt={photos[0]?.alt} className="w-3/4 h-3/4" />
+        <div className="w-full h-full flex items-center justify-center" style={{ padding: '6%' }}>
+          <Photo src={photos[0]?.src} alt={photos[0]?.alt} className="w-[85%] h-[85%]" />
         </div>
       )
   }

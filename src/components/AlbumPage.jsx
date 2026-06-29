@@ -5,7 +5,6 @@ export default function AlbumPage({ pageData, side, pageNumber }) {
 
   return (
     <div
-      // Using the upgraded page-paper class from your index.css
       className="relative overflow-hidden page-paper"
       style={{
         width: '100%',
@@ -17,7 +16,6 @@ export default function AlbumPage({ pageData, side, pageNumber }) {
         {pageData ? (
           <PageLayout layout={pageData.layout} photos={pageData.photos} side={side} />
         ) : (
-          // Blank end page
           <div className="w-full h-full" />
         )}
       </div>
@@ -26,11 +24,10 @@ export default function AlbumPage({ pageData, side, pageNumber }) {
       <div
         className="absolute inset-0 pointer-events-none z-50"
         style={{
-          // Deep crease at the spine, bright highlight on outer edges
+          // Responsive shadow: Scales down on mobile so it doesn't swallow the page
           boxShadow: isLeft
-            ? 'inset -45px 0 50px -15px rgba(0,0,0,0.65), inset 2px 0 4px rgba(255,255,255,0.45)'
-            : 'inset 45px 0 50px -15px rgba(0,0,0,0.65), inset -2px 0 4px rgba(255,255,255,0.45)',
-          // Simulates the physical curve of the page rolling into the binding
+            ? 'inset clamp(-45px, -6vw, -20px) 0 clamp(20px, 8vw, 50px) clamp(-15px, -2vw, -5px) rgba(0,0,0,0.65), inset 2px 0 4px rgba(255,255,255,0.45)'
+            : 'inset clamp(20px, 6vw, 45px) 0 clamp(20px, 8vw, 50px) clamp(-15px, -2vw, -5px) rgba(0,0,0,0.65), inset -2px 0 4px rgba(255,255,255,0.45)',
           background: isLeft
             ? 'linear-gradient(to left, rgba(0,0,0,0.25) 0%, rgba(0,0,0,0.05) 12%, transparent 30%)'
             : 'linear-gradient(to right, rgba(0,0,0,0.25) 0%, rgba(0,0,0,0.05) 12%, transparent 30%)',
@@ -42,12 +39,13 @@ export default function AlbumPage({ pageData, side, pageNumber }) {
         <div
           className="absolute bottom-4 pointer-events-none z-50"
           style={{
-            [isLeft ? 'left' : 'right']: '18px',
+            // Responsive positioning for the page numbers
+            [isLeft ? 'left' : 'right']: 'clamp(12px, 3vw, 18px)',
             fontFamily: 'Cormorant Garamond, serif',
-            fontSize: '10px',
+            fontSize: 'clamp(9px, 1.5vw, 11px)',
             letterSpacing: '0.15em',
-            color: 'rgba(90,65,40,0.6)', // Darkened slightly so it's readable over photos
-            textShadow: '0 1px 2px rgba(255,255,255,0.5)', // Subtle glow to separate it from dark backgrounds
+            color: 'rgba(90,65,40,0.6)',
+            textShadow: '0 1px 2px rgba(255,255,255,0.5)',
           }}
         >
           {pageNumber}
